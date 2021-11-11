@@ -24,8 +24,16 @@ fun main() {
                 val numberOfHours = calculator.numberOfHoursBetweenDateTimes(start, end)
                 call.respond(BusinessHoursResponse(numberOfHours))
             }
+            get("/age-validator", ) {
+                val validator = AgeValidator(21)
+                val dob = call.request.queryParameters["dob"]!!
+                val isOfAge = validator.isOfAge(dob)
+                call.respond(AgeValidatorResponse(isOfAge))
+            }
         }
     }.start(wait = true)
 }
 
 data class BusinessHoursResponse(val numberOfHours: Int)
+
+data class AgeValidatorResponse(val isOfAge: Boolean)
